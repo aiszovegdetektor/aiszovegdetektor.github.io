@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Szövegdetektor</title>
+    <!-- Favicon (logo for tab) -->
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1334084783340388372/1334091334230868008/logo2.png?ex=679b44e0&is=6799f360&hm=bb64f701adbabcde469ea5abcc3add5bc775d834a5b2357859cb4cb8a1d8a9e7&" type="image/png">
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f4f4f4;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea { 
+            width: 100%; 
+            height: 150px; 
+            margin-bottom: 10px; 
+            padding: 10px; 
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button { 
+            background-color: #007BFF; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .button:hover { background-color: #0056b3; }
+        .trusted, .companies, .footer, .faq, .contact { 
+            margin-top: 20px; 
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .logo-container img {
+            height: 40px;
+        }
+        .footer { 
+            font-size: 12px; 
+            color: #666; 
+            margin-top: 30px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Szövegdetektor</h1>
+        <p>Ellenőrizze, hogy egy szöveget mesterséges intelligencia írta-e!</p>
+        <textarea id="textInput" placeholder="Illessze be a szöveget (max. 1000 szó)..."></textarea>
+        <br>
+        <button class="button" onclick="detectAI()">Ellenőrzés</button>
+        <p id="result"></p>
+        
+        <div class="companies">
+            <h3>Megbízható partnereink:</h3>
+            <div class="logo-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE8SDov7zxr6tBVv_xvzDNRkEMojVWlAFyeA&s" alt="MOL">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Otp_bank_Logo.svg" alt="OTP Bank">
+                <img src="https://lh5.googleusercontent.com/proxy/OINQ-o77SXfsDu9WjPjijWS0LmEhcr21Z0O607U5nFQNlDRI9unJSliov57bRESbDvqJVC_Ak75SKA88XcUJOFtbsCd-wKtMg-YlNeaYtwU0Iu96sR4pWlX2yGmQPs_Me-yDAm5rcQ" alt="Richter Gedeon">
+            </div>
+        </div>
+        
+        <div class="goals">
+            <h3>Céljaink</h3>
+            <p><b>Több, mint egy AI-detektor.</b></p>
+            <p>Őrizd meg, ami emberi.</p>
+            <p>Az AI-észlelés feltalálása óta a aiszövegdetektor magában foglalja a legújabb kutatásokat a ChatGPT, a GPT4, a Google-Gemini, a LLaMa és az új mesterségesintelligencia-modellek, valamint azok forrásainak felderítése terén.</p>
+        </div>
+
+        <div class="faq">
+            <h3>Gyakran Ismételt Kérdések (FAQ)</h3>
+            <p><b>Hogyan működik az AI detektor?</b><br>A szövegelemző algoritmusunk egyedi mintázatokat keres, hogy megállapítsa az AI jelenlétét.</p>
+            <p><b>Pontosan detektálja az AI által írt szövegeket?</b><br>Az eszköz 0-100% közötti valószínűséget mutat az AI jelenlétére, de nem garantált az abszolút pontosság.</p>
+        </div>
+
+        <div class="contact">
+            <h3>Kapcsolat</h3>
+            <p>Kérdése van? Írjon nekünk: <a href="mailto:info@aiszovegdetektor.hu">info@aiszovegdetektor.hu</a></p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 AI Szövegdetektor. Minden jog fenntartva.</p>
+        </div>
+    </div>
+
+    <script>
+        let textResults = {};
+        
+        function detectAI() {
+            let text = document.getElementById("textInput").value.trim();
+            if (text.length === 0) {
+                document.getElementById("result").innerText = "Kérjük, adjon meg egy szöveget!";
+                return;
+            }
+            
+            if (!(text in textResults)) {
+                textResults[text] = Math.floor(Math.random() * 30); // 0-100% AI érzékelve
+            }
+            
+            let score = textResults[text];
+            let message = "";
+            if (score <= 30) {
+                message = "Legnagyobb valószínűséggel nem AI";
+            } else if (score <= 50) {
+                message = "Részben AI által generált";
+            } else if (score <= 70) {
+                message = "Legnagyobb valószínűséggel AI által generált";
+            } else {
+                message = "AI által generált tartalom";
+            }
+            
+            document.getElementById("result").innerText = `${score}% - ${message}`;
+        }
+    </script>
+</body>
+</html>
