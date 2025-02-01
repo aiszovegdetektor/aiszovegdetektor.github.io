@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Szövegdetektor</title>
-    <!-- Favicon (logo for tab) -->
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1334084783340388372/1334091334230868008/logo2.png?ex=679b44e0&is=6799f360&hm=bb64f701adbabcde469ea5abcc3add5bc775d834a5b2357859cb4cb8a1d8a9e7&" type="image/png">
     <style>
         body { 
@@ -104,18 +103,18 @@
 
     <script>
         let textResults = {};
-        
+
         function detectAI() {
             let text = document.getElementById("textInput").value.trim();
             if (text.length === 0) {
                 document.getElementById("result").innerText = "Kérjük, adjon meg egy szöveget!";
                 return;
             }
-            
+
             if (!(text in textResults)) {
                 textResults[text] = Math.floor(Math.random() * 30); // 0-100% AI érzékelve
             }
-            
+
             let score = textResults[text];
             let message = "";
             if (score <= 30) {
@@ -127,8 +126,24 @@
             } else {
                 message = "AI által generált tartalom";
             }
-            
-            document.getElementById("result").innerText = `${score}% - ${message}`;
+
+            let resultText = `${score}% - ${message}`;
+            document.getElementById("result").innerText = resultText;
+
+            // Generate filename based on current date and time
+            let now = new Date();
+            let timestamp = now.toISOString().replace(/[:.]/g, "-").slice(0, 19); // Format YYYY-MM-DDTHH-MM-SS
+            let filename = `CHECK${timestamp}.txt`;
+
+            // Save the text to a file
+            let fileContent = `Ellenőrzött szöveg:\n\n${text}\n\nEredmény: ${resultText}`;
+            let blob = new Blob([fileContent], { type: "text/plain" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
